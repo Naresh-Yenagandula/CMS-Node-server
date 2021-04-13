@@ -22,7 +22,7 @@ app.use(express.json());
 
 //Middleware Route
 app.use('/api/user',authRoute);
-app.use('/posts',verifyRoute);
+app.use('/verify',verifyRoute);
 
 
 app.listen(3000,()=>console.log("Server is running at 3000"))

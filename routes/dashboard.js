@@ -1,14 +1,26 @@
 const router = require('express').Router();
-const verify = require('./verifyToken');
 const User = require('../model/User');
+const jwt = require('jsonwebtoken');
 
 
-router.get('',verify,(req,res)=>{
-    // res.send(req.user);
-    User.findById({_id:req.user._id},(a,b)=>{
-        res.send(b);
+router.get('/data',verify,(req,res)=>{
+    User.findById({_id:decodedData._id},(error,data)=>{
+        return res.status(200).json({name:data.name});
     });
-
 })
+let decodedData = "";
+
+function verify(req,res,next){
+    const token = req.query.token;
+    if (!token) return res.status(400).send({message:'Access Denied'});
+
+    try {
+        const verified = jwt.verify(token,process.env.TOKEN_SECRET);
+        decodedData = verified;
+        next(); 
+    } catch (error) {
+        return res.status(400).json({message:'Invalid token'});
+    }
+}
 
 module.exports = router;
