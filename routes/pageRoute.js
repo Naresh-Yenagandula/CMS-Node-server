@@ -2,9 +2,21 @@ const router = require('express').Router();
 const User = require('../model/User');
 const categories = require('../model/category');
 
-router.post('/page',()=>{
-    
-})
+
+router.post('/pages',async (req,res)=>{
+    const pages = new Page({
+        title:req.body.title,
+        category:req.body.category,
+        author:req.body.author
+    });
+    try {
+        const pageSave = await pages.save();
+        res.send({pages: pages._id});
+        
+    } catch (error) {
+        res.status(400).json({message:"Failed to add page"})
+    }
+});
 
 router.get('/user',async (req,res)=>{
     const data = await User.find();
