@@ -5,15 +5,12 @@ const jwt = require('jsonwebtoken');
 
 router.post('/register',async (req,res)=>{
 
-    //Checks email exists in db or not
     const emailExists = await User.findOne({email:req.body.email});
-    if(emailExists) return res.status(400).send('Email Already Exists');
+    if(emailExists) return res.status(400).json({message:'Email Already Exists'});
 
-    //hashing password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password,salt);
 
-    //creating new user
     const user = new User({
         name:req.body.full_name,
         email:req.body.email,
@@ -21,12 +18,11 @@ router.post('/register',async (req,res)=>{
         group:req.body.group
     });
     try {
-        //store data
         const userSave = await user.save();
         res.send({user: user._id});
         
     } catch (error) {
-        res.status(400).send(error)
+        res.status(400).json({message:"Failed to add user"})
     }
 });
 

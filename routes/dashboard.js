@@ -12,14 +12,14 @@ let decodedData = "";
 
 function verify(req,res,next){
     const token = req.query.token;
-    if (!token) return res.status(400).send({message:'Access Denied'});
+    if (!token) return res.status(400).json({message:'Access Denied'});
 
     try {
         const verified = jwt.verify(token,process.env.TOKEN_SECRET);
         decodedData = verified;
         next(); 
     } catch (error) {
-        return res.status(400).json({message:'Invalid token'});
+        return res.status(400).json({message:'Token Expired'});
     }
 }
 
