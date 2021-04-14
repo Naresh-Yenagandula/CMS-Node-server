@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const User = require('../model/User');
 const categories = require('../model/category');
+const Page = require('../model/Page');
 
 
 router.post('/pages',async (req,res)=>{
