@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const app = express();
 const cors = require('cors');
+const pageRoute = require('./routes/pageRoute')
 
 //import routes
 const authRoute = require('./routes/authRoute');
@@ -23,6 +24,6 @@ app.use(express.json());
 //Middleware Route
 app.use('/api/user',authRoute);
 app.use('/verify',verifyRoute);
-
+app.use('/getdata',pageRoute);
 
 app.listen(3000,()=>console.log("Server is running at 3000"))
