@@ -12,8 +12,6 @@ router.post('/pages',async (req,res)=>{
     });
     try {
         const pageSave = await pages.save();
-        res.send({pages: pages._id});
-        
     } catch (error) {
         res.status(400).json({message:"Failed to add page"})
     }
@@ -25,8 +23,6 @@ router.post('/categories',async (req,res)=>{
     });
     try {
         const categorySave = await catg.save();
-        res.send({catg: catg._id});
-        
     } catch (error) {
         res.status(400).json({message:"Failed to add category"})
     }
@@ -37,11 +33,9 @@ router.get('/users/:offset/:limit',async (req,res)=>{
     const limit  = parseInt(req.params.limit);
 
     const data = await User.find({}).skip(offset).limit(limit);
-
     const total= await User.countDocuments();
 
     if(!data) return res.status(400).json({message:"No Data"});
-
     if(data) return res.status(200).json({result:data,no:total});
     
 });
@@ -106,7 +100,5 @@ router.put('/categories/:id',async (req,res)=>{
     if(data) return res.status(200).json({message:"Updated"});
     if(!data) return res.status(400).json({message:"Fail to update"});
 })
-
-
 
 module.exports = router;
