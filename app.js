@@ -17,7 +17,6 @@ mongoose.connect(process.env.DB_CONNECT,{useNewUrlParser:true,useUnifiedTopology
 })
 
 app.use(cors());
-//Middleware
 
 app.use(express.json());
 
