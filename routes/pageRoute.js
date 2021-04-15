@@ -43,6 +43,7 @@ router.get('/users/:offset/:limit',async (req,res)=>{
     if(!data) return res.status(400).json({message:"No Data"});
 
     if(data) return res.status(200).json({result:data,no:total});
+    
 });
 
 router.get('/pages/:offset/:limit',async (req,res)=>{
