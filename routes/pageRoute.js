@@ -38,7 +38,7 @@ router.get('/users/:offset/:limit',async (req,res)=>{
 
     const data = await User.find({}).skip(offset).limit(limit);
 
-    const total= await User.count();
+    const total= await User.countDocuments();
 
     if(!data) return res.status(400).json({message:"No Data"});
 
