@@ -5,6 +5,7 @@ const Page = require('../model/Page');
 
 
 router.post('/pages',async (req,res)=>{
+    console.log(req.body);
     const pages = new Page({
         title:req.body.title,
         category:req.body.category,
@@ -12,6 +13,7 @@ router.post('/pages',async (req,res)=>{
     });
     try {
         const pageSave = await pages.save();
+        res.json({message:"Added"});
     } catch (error) {
         res.status(400).json({message:"Failed to add page"})
     }
@@ -23,6 +25,7 @@ router.post('/categories',async (req,res)=>{
     });
     try {
         const categorySave = await catg.save();
+        res.json({message:"Added"});
     } catch (error) {
         res.status(400).json({message:"Failed to add category"})
     }
