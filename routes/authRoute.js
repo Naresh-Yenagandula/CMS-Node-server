@@ -32,11 +32,11 @@ router.post('/login',async (req,res)=>{
 
     //checks user exists or not
     const user = await User.findOne({email:req.body.email});
-    if(!user) return res.status(400).json({message:'User Not Exists'});  
+    if(!user) return res.status(400).json({message:'User not exists'});  
 
     //checking password
     const validPassword = await bcrypt.compare(req.body.password,user.password);
-    if(!validPassword) return res.status(400).json({message:'Invalid password'});
+    if(!validPassword) return res.status(400).json({message:'Email and password combination does not match'});
 
     const token = await jwt.sign({_id:user._id},process.env.TOKEN_SECRET,{expiresIn:'24h'});
     if(token) return res.status(200).json(token);
