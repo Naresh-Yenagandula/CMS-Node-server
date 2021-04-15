@@ -6,12 +6,6 @@ const categoryScheme = new mongoose.Schema({
         required:true,
     },
 })
-let model ={
-    getCategories: (offset, limit,cb) => {
-      categoryScheme.find({}).skip(offset).limit(limit);
-    },
-    getTotalCategories: ()=>{
-        categoryScheme.find({}).count();
-    }}
+
 
 module.exports  = mongoose.model('categories',categoryScheme);
