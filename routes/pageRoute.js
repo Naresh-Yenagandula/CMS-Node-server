@@ -43,7 +43,7 @@ router.get('/pages/:offset/:limit',async (req,res)=>{
     const offset = parseInt(req.params.offset);
     const limit  = parseInt(req.params.limit);
     const data = await Page.find().skip(offset).limit(limit);
-    const count = await Page.count();
+    const count = await Page.countDocuments();
     if(!data) return res.status(400).json({message:"error"});
     if(data) return res.status(200).json({result:data,no:count});
     
