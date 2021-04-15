@@ -39,11 +39,14 @@ router.get('/users',async (req,res)=>{
     if(data) return res.status(200).json(data);
 });
 
-router.get('/pages',async (req,res)=>{
-    const data = await Page.find();
-    if(!data) return res.status(400).json({message:"No Data"});
-
-    if(data) return res.status(200).json(data);
+router.get('/pages/:offset/:limit',async (req,res)=>{
+    const offset = parseInt(req.params.offset);
+    const limit  = parseInt(req.params.limit);
+    const data = await Page.find().skip(offset).limit(limit);
+    const count = await Page.count();
+    if(!data) return res.status(400).json({message:"error"});
+    if(data) return res.status(200).json({result:data,no:count});
+    
 });
 
 router.get('/categories',async (req,res)=>{
