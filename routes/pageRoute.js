@@ -43,10 +43,9 @@ router.get('/users/:offset/:limit',async (req,res)=>{
     
 });
 
-router.get('/pages/:offset/:limit',async (req,res)=>{
+router.get('/pages/:offset',async (req,res)=>{
     const offset = parseInt(req.params.offset);
-    const limit  = parseInt(req.params.limit);
-    const data = await Page.find().skip(offset).limit(limit);
+    const data = await Page.find().skip(offset).limit(5);
     const count = await Page.countDocuments();
     if(!data) return res.status(400).json({message:"error"});
     if(data) return res.status(200).json({result:data,no:count});
@@ -105,9 +104,15 @@ router.put('/categories/:id',async (req,res)=>{
 })
 
 router.delete('/pages/:id',async (req,res)=>{
-    const data  = await Page.findByIdAndDelete(req.params.id);
-    if(!data) return res.json(400).json({message:"Fail to delete Page"});
-    if(data) return res.json(200).json({message:"Page Deleted"});
+    const data  = await Page.findByIdAndDelete(req.params.id,{useFindAndModify:false});
+    if(!data) return res.status(400).json({message:"Fail to delete Page"});
+    if(data) return res.status(200).json({message:"Page Deleted"});
+})
+
+router.delete('/categories/:id',async (req,res)=>{
+    const data  = await categories.findByIdAndDelete(req.params.id,{useFindAndModify:false});
+    if(!data) return res.status(400).json({message:"Fail to delete Page"});
+    if(data) return res.status(200).json({message:"Category Deleted"});
 })
 
 module.exports = router;
