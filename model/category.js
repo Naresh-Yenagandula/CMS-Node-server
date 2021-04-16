@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { db } = require('./User');
 const categoryScheme = new mongoose.Schema({
     title:{
         type:String,
