@@ -4,7 +4,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 router.post('/register',async (req,res)=>{
-
     const emailExists = await User.findOne({email:req.body.email});
     if(emailExists) return res.status(400).json({message:'Email Already Exists'});
 
@@ -12,15 +11,14 @@ router.post('/register',async (req,res)=>{
     const hashedPassword = await bcrypt.hash(req.body.password,salt);
 
     const user = new User({
-        name:req.body.full_name,
+        name:req.body.name,
         email:req.body.email,
         password:hashedPassword,
         group:req.body.group
     });
     try {
         const userSave = await user.save();
-        res.send({user: user._id});
-        
+        res.json({message:"Added"});
     } catch (error) {
         res.status(400).json({message:"Failed to add user"})
     }
@@ -28,13 +26,10 @@ router.post('/register',async (req,res)=>{
 
 
 router.post('/login',async (req,res)=>{
-    console.log(req.body);
 
-    //checks user exists or not
     const user = await User.findOne({email:req.body.email});
     if(!user) return res.status(400).json({message:'User not exists'});  
 
-    //checking password
     const validPassword = await bcrypt.compare(req.body.password,user.password);
     if(!validPassword) return res.status(400).json({message:'Email and password combination does not match'});
 
