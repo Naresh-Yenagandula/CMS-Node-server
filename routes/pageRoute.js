@@ -82,7 +82,7 @@ router.get('/category/:id',async(req,res)=>{
 
 router.put('/pages/:id',async (req,res)=>{
     const data = await Page.findByIdAndUpdate(req.params.id,{
-        $set:{title:req.body.title, category:req.body.categorySelected, author:req.body.authorSelected}
+        $set:{title:req.body.title, category:req.body.category, author:req.body.author}
     },{useFindAndModify: false});
     if(data) return res.status(200).json({message:"Updated"});
     if(!data) return res.status(400).json({message:"Fail to update"});
