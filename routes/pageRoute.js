@@ -109,5 +109,10 @@ router.delete('/pages/:id',async (req,res)=>{
     if(!data) return res.json(400).json({message:"Fail to delete Page"});
     if(data) return res.json(200).json({message:"Page Deleted"});
 })
+router.delete('/categories/:id',async (req,res)=>{
+    const data  = await categories.findByIdAndDelete(req.params.id);
+    if(!data) return res.json(400).json({message:"Fail to delete Category"});
+    if(data) return res.json(200).json({message:"Category Deleted"});
+})
 
 module.exports = router;
