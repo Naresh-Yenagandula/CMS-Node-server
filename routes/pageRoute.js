@@ -110,4 +110,10 @@ router.delete('/pages/:id',async (req,res)=>{
     if(data) return res.json(200).json({message:"Page Deleted"});
 })
 
+router.delete('/users/:id',async (req,res)=>{
+    const data  = await User.findByIdAndDelete(req.params.id);
+    if(!data) return res.status(400).json({message:"Fail to delete User"});
+    if(data) return res.status(200).json({message:"User Deleted"});
+})
+
 module.exports = router;
