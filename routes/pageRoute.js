@@ -104,4 +104,10 @@ router.put('/categories/:id',async (req,res)=>{
     if(!data) return res.status(400).json({message:"Fail to update"});
 })
 
+router.delete('/pages/:id',async (req,res)=>{
+    const data  = await Page.findByIdAndDelete(req.params.id);
+    if(!data) return res.json(400).json({message:"Fail to delete Page"});
+    if(data) return res.json(200).json({message:"Page Deleted"});
+})
+
 module.exports = router;
