@@ -31,11 +31,10 @@ router.post('/categories',async (req,res)=>{
     }
 });
 
-router.get('/users/:offset/:limit',async (req,res)=>{
+router.get('/users/:offset',async (req,res)=>{
     const offset = parseInt(req.params.offset);
-    const limit  = parseInt(req.params.limit);
 
-    const data = await User.find({}).skip(offset).limit(limit);
+    const data = await User.find().skip(offset).limit(5);
     const total= await User.countDocuments();
 
     if(!data) return res.status(400).json({message:"No Data"});
