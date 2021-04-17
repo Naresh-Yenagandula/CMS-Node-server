@@ -25,4 +25,5 @@ app.use('/api/user',authRoute);
 app.use('/verify',verifyRoute);
 app.use('/getdata',pageRoute);
 
+
 app.listen(3000,()=>console.log("Server is running at 3000"))
