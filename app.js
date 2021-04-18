@@ -25,5 +25,9 @@ app.use('/api/user',authRoute);
 app.use('/verify',verifyRoute);
 app.use('/getdata',pageRoute);
 
+app.get('/' ,(req,res)=>{
+    res.send("Welcome to CMS App Node server");
+})
 
-app.listen(3000,()=>console.log("Server is running at 3000"))
+const port = process.env.PORT || '3000';
+app.listen(port,()=>console.log("Server is running at "+port))
