@@ -119,4 +119,15 @@ router.delete('/users/:id',async (req,res)=>{
     if(data) return res.status(200).json({message:"User Deleted"});
 })
 
+router.get('/users',async (req,res)=>{
+    const data = await User.find().sort({$natural:-1}).limit(5);
+    if(data) return res.status(200).json(data);
+    if(!data) return res.status(400).json({message:"Error"});
+})
+
+router.get('/pages',async (req,res)=>{
+    const data = await Page.find().sort({$natural:-1}).limit(5);
+    if(data) return res.status(200).json(data);
+    if(!data) return res.status(400).json({message:"Error"});
+})
 module.exports = router;
