@@ -29,5 +29,5 @@ app.get('/' ,(req,res)=>{
     res.send("Welcome to CMS App Node server");
 })
 
-const port = process.env.PORT || '3000';
-app.listen(port,()=>console.log("Server is running at "+port))
+// const port = process.env.PORT || 3000;
+app.listen(process.env.PORT || 3000,()=>console.log("Server is running" ));
