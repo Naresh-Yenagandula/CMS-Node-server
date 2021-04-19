@@ -20,7 +20,7 @@ router.post('/register',async (req,res)=>{
         const userSave = await user.save();
         res.json({message:"Added"});
     } catch (error) {
-        res.status(400).json({message:"Failed to add user"})
+        console.log("Failed to add user");
     }
 });
 

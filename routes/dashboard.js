@@ -4,9 +4,13 @@ const jwt = require('jsonwebtoken');
 
 
 router.get('/data',verify,(req,res)=>{
-    User.findById({_id:decodedData._id},(error,data)=>{
-        return res.status(200).json({name:data});
-    });
+    try {
+        User.findById({_id:decodedData._id},(error,data)=>{
+            return res.status(200).json({name:data});
+        });
+    } catch (error) {
+        console.log("error");
+    }
 })
 let decodedData = "";
 
