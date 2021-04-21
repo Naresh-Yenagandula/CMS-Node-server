@@ -3,9 +3,9 @@ const User = require('../model/User');
 const categories = require('../model/category');
 const Page = require('../model/Page');
 
-
+//add page in DB
 router.post('/pages',async (req,res)=>{
-    console.log(req.body);
+    // console.log(req.body);
     const pages = new Page({
         title:req.body.title,
         category:req.body.category,
@@ -20,6 +20,7 @@ router.post('/pages',async (req,res)=>{
     }
 });
 
+//add category in DB
 router.post('/categories',async (req,res)=>{
     const catg = new categories({
         title:req.body.title,
@@ -33,6 +34,7 @@ router.post('/categories',async (req,res)=>{
     }
 });
 
+//gets user data for pagination as per offset
 router.get('/users/:offset',async (req,res)=>{
     try {
         const offset = parseInt(req.params.offset);
@@ -45,6 +47,7 @@ router.get('/users/:offset',async (req,res)=>{
     }
 });
 
+//gets page data for pagination as per offset
 router.get('/pages/:offset',async (req,res)=>{
     try {
         const offset = parseInt(req.params.offset);
@@ -56,6 +59,7 @@ router.get('/pages/:offset',async (req,res)=>{
     } 
 });
 
+//gets category data for pagination as per offset
 router.get('/categories/:offset',async (req,res)=>{
     try {
         const offset = parseInt(req.params.offset);
@@ -68,6 +72,7 @@ router.get('/categories/:offset',async (req,res)=>{
     }
 });
 
+//gets page details by Id
 router.get('/page/:id',async(req,res)=>{
     try {
         const data = await Page.findById({_id:req.params.id});  
@@ -78,6 +83,7 @@ router.get('/page/:id',async(req,res)=>{
     }
 });
 
+//gets user details by Id
 router.get('/user/:id',async(req,res)=>{
     try {
         const data = await User.findById({_id:req.params.id});
@@ -88,6 +94,7 @@ router.get('/user/:id',async(req,res)=>{
     }
 });
 
+//gets category details by Id
 router.get('/category/:id',async(req,res)=>{
     try {
         const data = await categories.findById({_id:req.params.id});
@@ -98,6 +105,7 @@ router.get('/category/:id',async(req,res)=>{
     }
 });
 
+//update page by Id
 router.put('/pages/:id',async (req,res)=>{
     try {
         const data = await Page.findByIdAndUpdate(req.params.id,{
@@ -109,6 +117,7 @@ router.put('/pages/:id',async (req,res)=>{
     }
 })
 
+//update user by Id
 router.put('/users/:id',async (req,res)=>{
     try {
         const data = await User.findByIdAndUpdate(req.params.id,{
@@ -120,6 +129,7 @@ router.put('/users/:id',async (req,res)=>{
     }
 })
 
+//update category by Id
 router.put('/categories/:id',async (req,res)=>{
     try {
         const data = await categories.findByIdAndUpdate(req.params.id,{
@@ -131,6 +141,7 @@ router.put('/categories/:id',async (req,res)=>{
     }
 })
 
+//delete page by Id
 router.delete('/pages/:id',async (req,res)=>{
     try {
         const data  = await Page.findByIdAndDelete(req.params.id,{useFindAndModify:false});
@@ -141,6 +152,7 @@ router.delete('/pages/:id',async (req,res)=>{
     }
 })
 
+//delete category by Id
 router.delete('/categories/:id',async (req,res)=>{
     try {
         const data  = await categories.findByIdAndDelete(req.params.id,{useFindAndModify:false});
@@ -150,6 +162,7 @@ router.delete('/categories/:id',async (req,res)=>{
     }
 })
 
+//delete user by Id
 router.delete('/users/:id',async (req,res)=>{
     try {
         const data  = await User.findByIdAndDelete(req.params.id);
@@ -159,6 +172,7 @@ router.delete('/users/:id',async (req,res)=>{
     }
 })
 
+//gets latest users
 router.get('/users',async (req,res)=>{
     try {
         const data = await User.find().sort({$natural:-1}).limit(5);
@@ -168,6 +182,7 @@ router.get('/users',async (req,res)=>{
     }
 })
 
+//gets latest pages
 router.get('/pages',async (req,res)=>{
     try {
         const data = await Page.find().sort({$natural:-1}).limit(5);
@@ -176,4 +191,5 @@ router.get('/pages',async (req,res)=>{
         console.log("Failed to get pages");
     }
 })
+
 module.exports = router;

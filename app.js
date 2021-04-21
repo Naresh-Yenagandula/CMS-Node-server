@@ -9,6 +9,7 @@ const authRoute = require('./routes/authRoute');
 const verifyRoute = require('./routes/dashboard');
 const pageRoute = require('./routes/pageRoute');
 
+//loads environment variables
 dotenv.config();
 
 //Connect to DB
@@ -16,8 +17,10 @@ mongoose.connect(process.env.DB_CONNECT,{useNewUrlParser:true,useUnifiedTopology
     console.log("Connected to DB");
 })
 
+//allow cross origin requests
 app.use(cors());
 
+//middleware function which parses incoming requests
 app.use(express.json());
 
 //Middleware Route

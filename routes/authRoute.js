@@ -3,10 +3,14 @@ const User = require('../model/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
+//add incoming user data in DB
 router.post('/register',async (req,res)=>{
+
+    //checks existing email
     const emailExists = await User.findOne({email:req.body.email});
     if(emailExists) return res.status(400).json({message:'Email Already Exists'});
 
+    //Hashing password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password,salt);
 
@@ -24,6 +28,7 @@ router.post('/register',async (req,res)=>{
     }
 });
 
+//verify user login credentials
 router.post('/login',async (req,res)=>{
     const user = await User.findOne({email:req.body.email});
     if(!user) return res.status(400).json({message:'User not exists'});  
@@ -31,6 +36,7 @@ router.post('/login',async (req,res)=>{
     const validPassword = await bcrypt.compare(req.body.password,user.password);
     if(!validPassword) return res.status(400).json({message:'Email and password combination does not match'});
 
+    //generates token with user id
     const token = await jwt.sign({_id:user._id},process.env.TOKEN_SECRET,{expiresIn:'24h'});
     if(token) return res.status(200).json(token);
 

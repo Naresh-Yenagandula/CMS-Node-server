@@ -2,7 +2,7 @@ const router = require('express').Router();
 const User = require('../model/User');
 const jwt = require('jsonwebtoken');
 
-
+//get user details after token verified
 router.get('/data',verify,(req,res)=>{
     try {
         User.findById({_id:decodedData._id},(error,data)=>{
@@ -12,8 +12,10 @@ router.get('/data',verify,(req,res)=>{
         console.log("error");
     }
 })
+
 let decodedData = "";
 
+//verify token
 function verify(req,res,next){
     const token = req.query.token;
     if (!token) return res.status(400).json({message:'Access Denied'});
