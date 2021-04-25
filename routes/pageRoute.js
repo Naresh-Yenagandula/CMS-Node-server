@@ -16,7 +16,7 @@ router.post('/pages',async (req,res)=>{
         res.json({message:"Added"});
     } catch (error) {
         // res.status(400).json({message:"Failed to add page"})
-        console.log("failed to add page");
+        res.status(400).json({message:"Failed to add page"})
     }
 });
 
@@ -29,8 +29,7 @@ router.post('/categories',async (req,res)=>{
         const categorySave = await catg.save();
         res.json({message:"Added"});
     } catch (error) {
-        // res.status(400).json({message:"Failed to add category"})
-        console.log("Failed to add category");
+        res.status(400).json({message:"Failed to add category"})
     }
 });
 
@@ -42,8 +41,7 @@ router.get('/users/:offset',async (req,res)=>{
         const total= await User.countDocuments(); 
         return res.status(200).json({result:data,no:total});
     } catch (error) {
-        // res.status(400).json({message:"No Data"});
-        console.log("Failed to add user");
+        res.status(400).json({message:"No Data"});
     }
 });
 
@@ -55,7 +53,7 @@ router.get('/pages/:offset',async (req,res)=>{
         const count = await Page.countDocuments();
         return res.status(200).json({result:data,no:count});
     } catch (error) {
-        console.log("Failed to get page");
+        res.status(400).json({message:"No Data"})
     } 
 });
 
@@ -78,8 +76,7 @@ router.get('/page/:id',async(req,res)=>{
         const data = await Page.findById({_id:req.params.id});  
         return res.status(200).json(data);
     } catch (error) {
-        // res.status(400).json({message:"Error"});
-        console.log("Failed to get page");
+        res.status(400).json({message:"Error"});
     }
 });
 
@@ -113,7 +110,7 @@ router.put('/pages/:id',async (req,res)=>{
         },{useFindAndModify: false});
         return res.status(200).json({message:"Updated"});
     } catch (error) {
-        console.log("Failed to update page");
+        res.status(400).json({message:"Failed to update Page"})
     }
 })
 
@@ -147,8 +144,8 @@ router.delete('/pages/:id',async (req,res)=>{
         const data  = await Page.findByIdAndDelete(req.params.id,{useFindAndModify:false});
         return res.status(200).json({message:"Page Deleted"});
     } catch (error) {
-        // res.status(400).json({message:"Fail to delete Page"});
-        console.log("Failed to delete page");
+        res.status(400).json({message:"Fail to delete Page"});
+        // console.log("Failed to delete page");
     }
 })
 
@@ -188,7 +185,8 @@ router.get('/pages',async (req,res)=>{
         const data = await Page.find().sort({$natural:-1}).limit(5);
         return res.status(200).json(data);
     } catch (error) {
-        console.log("Failed to get pages");
+        res.status(400).json({message:"No Data"})
+        // console.log("Failed to get pages");
     }
 })
 
